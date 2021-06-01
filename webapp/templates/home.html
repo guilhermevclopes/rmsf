@@ -5,55 +5,62 @@
 <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap" rel="stylesheet">
 
 <style>
-  body{
-  background-color: #22272e;
-  font-family: 'Dosis', sans-serif;
-  font-size: 22px;
-  }
-  
-  div{
-    font-variant: small-caps;
-    -webkit-text-stroke-width: 3px;
-    -webkit-text-stroke-color: black;
-    text-align: center;
-  }
-  .signs{
-	  position: absolute;
-  }
+	body{
+		
+		background-color: #22272e;
+		font-family: 'Dosis', sans-serif;
+		font-variant: small-caps;
+		text-align: center;
+	}
+
+	img{
+		display: block;
+		margin-left: auto;
+  		margin-right: auto;
+		width: 40%;
+	}
+
+	span{
+		-webkit-text-stroke-width: 0.3vw;
+		-webkit-text-stroke-color: black;
+		text-align: center;
+		color:#ffa000;
+		font-size: 10vw;
+
+	}
 
 	.button{
 		font-family: 'Dosis', sans-serif;
-		padding: 0;
+		padding: 3;
 		background: none;
 		font-variant: small-caps;
-		font-size: 60px;  
-		text-align: center;
+		font-size: 5vw;
+		transition-duration: 0.5s;
+		margin: auto;
+
 	}
 	.signup{
-		border-color:lemonchiffon;
+		border-color:black;
 		border-radius: 12px;
-		border
+		border-style: solid;
+		padding: 0px 5px;
 	}
+
 	.signin{
 		border: none;
 	}
-  button :hover{
-
-  }
-
-
 
 </style>
 <body>
-<div class=main>
-  <img  src="https://image.flaticon.com/icons/png/512/1686/1686011.png" alt="ASIntTube" width=500 height=500 />
-  <span style="font-size: 120px; color:#ffa000; ">MagicMirror</span>
-</div>
+	<div class=main>
+		<img  src="https://image.flaticon.com/icons/png/512/1686/1686011.png" alt="icon"/>
+		<span>MagicMirror</span>
+	</div>
 
-
-<div class=signs>
-	<button class="button signin">Sign in</button>
-	<button class="button signup">Sign up</button>
-</div>
-
+	<div class=signs>
+		<button class="button signin">Sign in</button>
+		<button class="button signup">Sign up</button>
+	</div>
 </body>
+
+
