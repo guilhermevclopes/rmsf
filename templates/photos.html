@@ -1,0 +1,107 @@
+<!doctype html>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{% block title %}{% endblock %} Espelho Meu Espelho Meu, Será que o server funciona?</title>
+<link rel="preconnect" href="https://fonts.gstatic.com"> 
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-xmlrpc/0.4.3/jquery.xmlrpc.js"> </script>
+
+
+<style>
+	body{
+		
+		background-color: #22272e;
+		font-family: 'Dosis', sans-serif;
+		font-variant: small-caps;
+		text-align: center;
+	}
+
+	main{
+		padding: 30px;
+	}
+
+	.topnav {
+		overflow: hidden;
+		background-color: #64b5f6;
+	}
+
+	.topnav a {
+		float: left;
+		color: whitesmoke;
+		text-align: center;
+		padding: 16px 18px;
+		text-decoration: none;
+		font-size: large;
+	}
+
+	.topnav a:hover {
+		background-color: whitesmoke ;
+		color: #262526;
+	}
+
+	.topnav img {
+		float: right;
+		background-color: #262526;
+	}
+
+	.input {
+    padding: 10px 71px;
+	}
+
+	.input input {
+		border-radius: 2px;
+		border:transparent;
+		width: 275px;
+		height: 15px;
+		size: 0px 50px;
+		text-align: left;
+	}
+
+	.input button{
+		border-radius: 2px;
+		border:transparent;
+	}
+
+	.input button:active{
+		background-color:#bbdefb;
+	}
+
+</style>
+
+<body>
+	<div class="topnav">
+		<img style="display: block; margin-left: auto; margin-right: auto;" src="https://image.flaticon.com/icons/png/512/1686/1686011.png" alt="icon" width=52 height=54 />
+		<a href="{{ url_for("home_page")}}"> < go back </a>
+	</div>
+	<div class="input">
+		<input type="file" name="files[]" multiple />
+		<button id="submit">Submit</button>
+	</div>
+	
+</body>
+
+<script>
+    function sendForm(formDfileata){
+        send = {"username": username, 'password': password}
+        $.ajax({
+            url: '/Auth/login',
+            type: "POST",
+            dataType: "json",
+            contentType: 'application/json',
+            data: JSON.stringify(send),
+        });
+    }
+
+	$(document).ready(function(){
+        $("#submit").click(function(){
+			var file = document.getElementsByName("files[]")
+			for (var i = 0; i < file.files.length; i++) {
+				uploadFile(file.files[i])
+			}
+			alert("file.files.length")
+    	});
+	});
+
+
+</script>

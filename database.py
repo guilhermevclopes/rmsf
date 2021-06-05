@@ -22,7 +22,7 @@ class users(Base):
     __tablename__ = 'usersTable'
     username = Column(String, primary_key = True)
     password = Column(String)
-    settings = Column(JSON)
+    #settings = Column(JSON)
     def __repr__(self):
         return "<username=%s, password=%s>" % (self.username, self.password)
     def to_dictionary(self):
@@ -48,7 +48,42 @@ session = scoped_session(Session)
 
 
 def new_user(user):
-    return
+    exists = session.query(users).filter(users.username==user["username"]).first()
+    if exists == None:
+        print(user["username"])
+        print(user["password"])
+        new = users(username = user["username"], password = user["password"])
+        try:
+            session.add(new)
+            session.commit()
+            session.close()
+            return 1
+        except:
+            return None
+    else:
+        return 0
+
+
+# def newUser(userData):
+#     exists = session.query(users).filter(users.id==userData['username']).first()
+#     if exists == None:
+#         newEvent('NEW USER', userData['username'])
+#         new = users(id = userData['username'], name = userData['name'], email = userData['email'], registeredVideos = 0, totalViews = 0, totalQuestions = 0, totalAnswers = 0)
+#         try:
+#             session.add(new)
+#             session.commit()
+#             session.close()
+#             return 1
+#         except:
+#             return None
+#     else:
+#         return 0
+
+def search_user(user):
+    u = session.query(users).filter(users.username==user["username"]).first()
+    session.close()
+    return u
+
 # def listVideos():
 #     videosList = session.query(videos).all()
 #     session.close()
