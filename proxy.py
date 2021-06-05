@@ -41,47 +41,43 @@ def login():
 def signup():
     return render_template("signup.html")
 
-@app.route('/photos')
-def photos():
-    return render_template("photos.html")
-
 @app.route('/settings')
 def settings():
     return render_template("settings.html")
 
-@app.route('/Auth/signup', methods = ['POST'])
-def auth_signup():
-    try:
-        resp = database.new_user(request.get_json())
-        print(resp)
-        if resp:
-            return redirect(url_for("login"))
-        else:
-            return redirect(url_for("home_page"))
-    except:
-            return redirect(url_for("home_page"))
+# @app.route('/Auth/signup', methods = ['POST'])
+# def auth_signup():
+#     try:
+#         resp = database.new_user(request.get)
+#         print(resp)
+#         if resp:
+#             return redirect(url_for("login"))
+#         else:
+#             return redirect(url_for("home_page"))
+#     except:
+#             return redirect(url_for("home_page"))
 
-@app.route('/Auth/login', methods=['POST'])
-def auth_login():
-    try:
-        query = database.search_user(request.get_json())
-        print(query)
-        current_user = query["username"]
-        render_template("settings.html")
-    except:
-        return render_template("login.html")
+# @app.route('/Auth/login', methods=['POST'])
+# def auth_login():
+#     try:
+#         query = database.search_user(request.get_json())
+#         print(query)
+#         current_user = query["username"]
+#         render_template("settings.html")
+#     except:
+#         return render_template("login.html")
 
 
-@app.route('/Settings/fetch/current_user', methods = ['GET'])
-def fetch_current_user():
-    print(current_user)
-    try:
-        print(current_user)
-        return current_user
-    except:
-        return "none"    
+# @app.route('/Settings/fetch/current_user', methods = ['GET'])
+# def fetch_current_user():
+#     print(current_user)
+#     try:
+#         print(current_user)
+#         return current_user
+#     except:
+#         return "none"    
 
-# @app.route('/Settings/update/<str:user>', methods = ['POST'])
+# @app.route('/Settings/update/<int:user>', methods = ['POST'])
 # def update_settings(user):
 #     try:
 #         settings = database.update_settings(user, request.get_json())
@@ -90,10 +86,30 @@ def fetch_current_user():
 #     return 1
 
 
-# @app.route('/Pictures/upload/<str:user>', methods = ['POST'])
-# def upload_pictures(user):
-#     return
+@app.route('/login/user', methods = ['POST'])
+def user_login():
+    username = request.form["username"]
+    if(database.search_user(username)):
+        return render_template("settings.html")
+    
+    return render_template("home.html")
 
+
+@app.route('/signup/user', methods = ['POST'])
+def user_signup():
+    
+    f = request.files.getlist("files")
+
+    username = request.form["username"]
+    password = request.form["password"]
+    print(username)
+    print(password)
+    if database.new_user(username, password):
+        print(f)
+        for file in f:
+            file.save("dataset/"+file.filename)
+        return render_template("settings.html")
+    return render_template("home.html")
 if __name__ == '__main__':
-    app.run(port=5000,debug=True)
+    app.run(port=5001,debug=True)
    

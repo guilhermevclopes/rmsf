@@ -47,12 +47,10 @@ Session = sessionmaker(bind=engine)
 session = scoped_session(Session)
 
 
-def new_user(user):
-    exists = session.query(users).filter(users.username==user["username"]).first()
+def new_user(user, passw):
+    exists = session.query(users).filter(users.username==user).first()
     if exists == None:
-        print(user["username"])
-        print(user["password"])
-        new = users(username = user["username"], password = user["password"])
+        new = users(username = user, password = passw)
         try:
             session.add(new)
             session.commit()
@@ -80,7 +78,7 @@ def new_user(user):
 #         return 0
 
 def search_user(user):
-    u = session.query(users).filter(users.username==user["username"]).first()
+    u = session.query(users).filter(users.username==user).first()
     session.close()
     return u
 

@@ -78,29 +78,11 @@
 		<a href="{{ url_for("home_page")}}"> < go back </a>
 	</div>
 
-	<div class= "main">
-		Ola
-		<b id="user">
-
-		</b>
+	<div>
+		timezone
 	</div>
-
+	<div>
+		weather
+	</div>
 	
 </body>
-
-
-<script>
-    function getUser(){
-        $.ajax({
-            url: '/Settings/fetch/current_user',
-            type: "GET",
-            dataType: "json",
-            success: function (data) {
-				alert(data)
-            }
-        })
-    }
-	$(document).ready(function(){
-       getUser()
-    });
-</script>

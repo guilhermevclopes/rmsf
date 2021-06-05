@@ -49,14 +49,7 @@
     padding: 10px 71px;
 	}
 
-	.input input {
-		border-radius: 2px;
-		border:transparent;
-		width: 275px;
-		height: 15px;
-		size: 0px 50px;
-		text-align: left;
-	}
+
 
 	.input button{
 		border-radius: 2px;
@@ -67,6 +60,9 @@
 		background-color:#bbdefb;
 	}
 
+
+
+
 </style>
 
 <body>
@@ -75,54 +71,18 @@
 		<a href="{{ url_for("home_page")}}"> < go back </a>
 	</div>
 
-	<div class= "main">
-		<b style="color: whitesmoke;">Log In</b>
-		<div class= "input">
-			Username
-			<input type="text" placeholder="username"  id="username">
-		</div>
-		<div class= "input">
-			Password
-			<input type="password" placeholder="password"  id="password">
-		</div>
-	</div>
-
-	<div class = input>
-		<button class= xbutton id="buttonLogIn">
-			Log In
-		</button>
-	</div>
-	
+	<div class="input">
+		<form action="/login/user" method="POST" enctype="multipart/form-data">
+			<b style="color: whitesmoke;">Log In</b>
+			<div class= "input" style="color: whitesmoke;">
+				Username
+				<input type="text" placeholder="username"  name="username" pattern="[^\s]+" title="Insert username without spaces" required>
+			</div>
+			<div class= "input" style="color: whitesmoke;">
+				Password	
+				<input type="password" placeholder="password"  name="password" pattern="[^\s]+" required>
+			</div>
+			<input type="submit" value="LogIn"/>
+		</form>
+	</div>	
 </body>
-
-
-<script>
-    function login(username, password){
-        send = {"username": username, 'password': password}
-        $.ajax({
-            url: '/Auth/login',
-            type: "POST",
-            dataType: "json",
-            contentType: 'application/json',
-            data: JSON.stringify(send),
-        });
-    }
-
-    $(document).ready(function(){
-        $("#buttonLogIn").click(function(){
-            var username = document.getElementById("username").value;
-            var password = document.getElementById("password").value; 
-
-			if(username && password){
-				login(username, password);
-				window.location.href = "/settings";
-			}
-			else
-				alert("Wrong \"username\" and \"password\". If not yet registered go to Sign In!")
-
-			setTimeout(() => {
-                document.getElementById('username').value = '';
-                document.getElementById('password').value = '';}, 500);
-        	})
-    });
-</script>
