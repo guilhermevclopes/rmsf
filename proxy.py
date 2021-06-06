@@ -8,6 +8,7 @@ from flask import session as flasksession
 from flask import abort
 import requests
 import os
+import constructor
 
 import database
 from sqlalchemy.sql.sqltypes import JSON
@@ -89,6 +90,8 @@ def settings():
 @app.route('/login/user', methods = ['POST'])
 def user_login():
     username = request.form["username"]
+    global current_user 
+    current_user = username
     if(database.search_user(username)):
         return render_template("settings.html")
     
@@ -99,17 +102,43 @@ def user_login():
 def user_signup():
     
     f = request.files.getlist("files")
-
     username = request.form["username"]
+    os.mkdir(username)
+    global current_user 
+    current_user = username
     password = request.form["password"]
-    print(username)
-    print(password)
+
     if database.new_user(username, password):
-        print(f)
+        os.mkdir("dataset/"+username)
         for file in f:
-            file.save("dataset/"+file.filename)
+            file.save("dataset/"+username+"/"+file.filename)
+
+        os.system("python encode_faces.py --dataset dataset --encodings encodings.pickle --detection-method hog")
+
+
         return render_template("settings.html")
     return render_template("home.html")
+
+
+@app.route('/user/settings', methods = ['POST'])
+def update_settings():
+    data = []
+    data.append(request.form["news"])
+    data.append(request.form["weather"])
+    print(request.form)
+    for x in range(3):
+        i = str(x+1)
+        m = "module"+i 
+        if m in request.form:
+            data.append("1")
+        else:
+            data.append("0")
+    
+    database.update_settings(current_user, data)
+    constructor.constructor(current_user)
+
+    return render_template("settings.html")
+
 if __name__ == '__main__':
-    app.run(port=5001,debug=True)
+    app.run(port=5000,debug=True)
    

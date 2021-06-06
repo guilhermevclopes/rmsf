@@ -12,6 +12,8 @@
 	body{
 		
 		background-color: #22272e;
+		font-size:x-large;
+		color: whitesmoke;
 		font-family: 'Dosis', sans-serif;
 		font-variant: small-caps;
 		text-align: center;
@@ -45,30 +47,64 @@
 		background-color: #262526;
 	}
 
-	.input {
-    padding: 10px 71px;
+	.switch {
+		position: relative;
+		display: inline-block;
+		width: 60px;
+		height: 34px;
 	}
 
-	.input input {
-		border-radius: 2px;
-		border:transparent;
-		width: 275px;
-		height: 15px;
-		size: 0px 50px;
-		text-align: left;
+	.switch input { 
+		opacity: 0;
+		width: 0;
+		height: 0;
 	}
 
-	.input button{
-		border-radius: 2px;
-		border:transparent;
+	.slider {
+		position: absolute;
+		cursor: pointer;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background-color: #ccc;
+		-webkit-transition: .4s;
+		transition: .4s;
 	}
 
-	.input button:active{
-		background-color:#bbdefb;
+	.slider:before {
+		position: absolute;
+		content: "";
+		height: 26px;
+		width: 26px;
+		left: 4px;
+		bottom: 4px;
+		background-color: white;
+		-webkit-transition: .4s;
+		transition: .4s;
 	}
 
+	input:checked + .slider {
+		background-color: #2196F3;
+	}
 
+	input:focus + .slider {
+		box-shadow: 0 0 1px #2196F3;
+	}
 
+	input:checked + .slider:before {
+		-webkit-transform: translateX(26px);
+		-ms-transform: translateX(26px);
+		transform: translateX(26px);
+	}
+
+	.slider.round {
+		border-radius: 34px;
+	}
+
+	.slider.round:before {
+		border-radius: 50%;
+	}
 
 </style>
 
@@ -78,11 +114,49 @@
 		<a href="{{ url_for("home_page")}}"> < go back </a>
 	</div>
 
-	<div>
-		timezone
-	</div>
-	<div>
-		weather
-	</div>
-	
+	<form action="/user/settings" method="POST" enctype="multipart/form-data">
+		<div class= "input" style="color: whitesmoke;">
+			News
+			<select name="news" id="news">
+				<option valuen="none">none</option>
+				<option value="RTP">RTP</option>
+				<option value="JN">JN</option>
+				<option value="NYT">NYT</option>
+			</select>
+		</div>
+		<div class= "input" style="color: whitesmoke;">
+			Weather Forecast
+			<select name="weather" id="weather">
+				<option valuen="none">none</option>
+				<option value="Lisbon,Portugal">Lisbon,Portugal</option>
+				<option value="Porto,Portugal">Porto,Portugal</option>
+				<option value="Algarve,Portugal">Algarve,Portugal</option>
+			</select>
+		</div>
+		<div>
+			Clock
+			<label class="switch">
+				<input type="checkbox" name="module1">
+				<span class="slider round"></span>
+			</label>		  
+		</div>
+		<div>
+			Calendar
+			<label class="switch">
+				<input type="checkbox" name="module2">
+				<span class="slider round"></span>
+			</label>		  
+		</div>
+		<div>
+			Compliments
+			<label class="switch">
+				<input type="checkbox" name="module3">
+				<span class="slider round"></span>
+			</label>		  
+		</div>
+		<input type="submit" value="Submit Settings"/>
+	</form>
+
+
 </body>
+

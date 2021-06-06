@@ -22,7 +22,6 @@ class users(Base):
     __tablename__ = 'usersTable'
     username = Column(String, primary_key = True)
     password = Column(String)
-    #settings = Column(JSON)
     def __repr__(self):
         return "<username=%s, password=%s>" % (self.username, self.password)
     def to_dictionary(self):
@@ -32,15 +31,15 @@ class users(Base):
 class settings(Base):
     __tablename__ = 'appSettingsTable'
     username = Column(String, primary_key=True)
+    news = Column(String)
     weather = Column(String) 
-    module1 = Column(Integer, default = 1)
+    module1 = Column(Integer, default = 0)
     module2 = Column(Integer, default = 0)
     module3 = Column(Integer, default = 0)
-    #...
     def __repr__(self):
-        return "<username id=%s, weather=%s>" % (self.username, self.weather)
+        return "<username id=%s, weather=%s,>" % (self.username, self.weather)
     def to_dictionary(self):
-        return {"username": self.username, "url": self.weather}
+        return {"username": self.username, "weather": self.weather, "news": self.news, "clock":self.module1, "calendar":self.module2, "compliments":self.module3}
 
 Base.metadata.create_all(engine) 
 Session = sessionmaker(bind=engine)
@@ -61,26 +60,30 @@ def new_user(user, passw):
     else:
         return 0
 
-
-# def newUser(userData):
-#     exists = session.query(users).filter(users.id==userData['username']).first()
-#     if exists == None:
-#         newEvent('NEW USER', userData['username'])
-#         new = users(id = userData['username'], name = userData['name'], email = userData['email'], registeredVideos = 0, totalViews = 0, totalQuestions = 0, totalAnswers = 0)
-#         try:
-#             session.add(new)
-#             session.commit()
-#             session.close()
-#             return 1
-#         except:
-#             return None
-#     else:
-#         return 0
-
 def search_user(user):
     u = session.query(users).filter(users.username==user).first()
     session.close()
     return u
+
+def update_settings(user,data):
+    old_settings = session.query(settings).filter(settings.username==user).first()
+    if old_settings != None:
+        session.delete(old_settings)
+        session.commit()
+    new = settings(username = user, news=data[0], weather=data[1], module1=data[2], module2=data[3], module3=data[4])
+    try:
+        session.add(new)
+        session.commit()
+        session.close()
+        return 1
+    except:
+        return None
+    return 0
+
+def get_settings(user):
+    s = session.query(settings).filter(settings.username == user).first()
+    session.close()
+    return s.to_dictionary()
 
 # def listVideos():
 #     videosList = session.query(videos).all()

@@ -1,0 +1,106 @@
+{
+	"address": "localhost",
+	"port": 8080,
+	"basePath": "/",
+	"ipWhitelist": [
+		"127.0.0.1",
+		"::ffff:127.0.0.1",
+		"::1"
+	],
+	"useHttps": false,
+	"httpsPrivateKey": "",
+	"httpsCertificate": "",
+	"language": "en",
+	"locale": "en-US",
+	"logLevel": [
+		"INFO",
+		"LOG",
+		"WARN",
+		"ERROR"
+	],
+	"timeFormat": 24,
+	"units": "metric",
+	"modules": [
+		{
+			"module": "MMM-Face-Multi-User-Recognition-SMAI",
+			"position": "top_right",
+			"config": {
+				"useMMMFaceRecoDNN": true
+			},
+			"classes": "lourenco"
+		},
+		{
+			"module": "MMM-Face-Reco-DNN",
+			"config":{
+				"logoutDelay": 30000,
+				"checkInterval": 500
+			}
+		},
+		{
+			"module": "alert"
+		},
+		{
+			"module": "updatenotification",
+			"position": "top_bar"
+		},
+		{
+			"module": "clock",
+			"disabled": false,
+			"position": "top_left",
+			"classes": "lourenco"
+		},
+		{
+			"module": "calendar",
+			"disabled": true,
+			"header": "Calendar",
+			"position": "top_left",
+			"config": {
+				"calendars": [
+					{
+						"symbol": "calendar-check",
+						"url": "webcal://feriados.com.pt/ical/portugal/2021/"
+					}
+				]
+			},
+			"classes": "lourenco"
+		},
+		{
+			"module": "compliments",
+			"disabled": false,
+			"position": "lower_third",
+			"classes": "lourenco"
+		},
+		{
+			"module": "weather",
+			"disabled": false,
+			"position": "top_right",
+			"header": "Weather Forecast",
+			"config": {
+				"weatherProvider": "openweathermap",
+				"type": "forecast",
+				"location": "Lisbon,Portugal",
+				"locationID": "",
+				"apiKey": "cb768cb0da3b641c528735b0a5762dcc"
+			},
+			"classes": "lourenco"
+		},
+		{
+			"module": "newsfeed",
+			"disabled": false,
+			"position": "bottom_bar",
+			"config": {
+				"feeds": [
+					{
+						"title": "RTP",
+						"url": "https://www.rtp.pt/noticias/rss/pais"
+					}
+				],
+				"showSourceTitle": true,
+				"showPublishDate": true,
+				"broadcastNewsFeeds": true,
+				"broadcastNewsUpdates": true
+			},
+			"classes": "lourenco"
+		}
+	]
+}
