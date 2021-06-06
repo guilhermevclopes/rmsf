@@ -4,7 +4,6 @@ import database
 
 def constructor(username):
     settings = database.get_settings(username)
-    print(settings)
 
     news_dict = {"RTP": "https://www.rtp.pt/noticias/rss/pais", "JN": "http://feeds.jn.pt/JN-Ultimas", "NYT": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"}
     weather_dict = {"Lisbon,Portugal": "2267057", "Porto,Portugal":"2735943", "Algarve,Portugal":"2268339"}

@@ -19,16 +19,7 @@ app.config['SESSION_TYPE'] = 'filesystem'
 app.config['SESSION_PERMANENT'] = False
 
 os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
-
 current_user = ""
-
-# JSON
-# [
-#     {
-#         username: Gui
-#         password: pass
-#     }
-# ]
 
 @app.route('/')
 def home_page():
@@ -125,7 +116,7 @@ def update_settings():
     data = []
     data.append(request.form["news"])
     data.append(request.form["weather"])
-    print(request.form)
+
     for x in range(3):
         i = str(x+1)
         m = "module"+i 
@@ -140,5 +131,5 @@ def update_settings():
     return render_template("settings.html")
 
 if __name__ == '__main__':
-    app.run(port=5000,debug=True)
+    app.run(host="139.59.185.120", port=5000,debug=True)
    
