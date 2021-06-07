@@ -37,47 +37,6 @@ def signup():
 def settings():
     return render_template("settings.html")
 
-# @app.route('/Auth/signup', methods = ['POST'])
-# def auth_signup():
-#     try:
-#         resp = database.new_user(request.get)
-#         print(resp)
-#         if resp:
-#             return redirect(url_for("login"))
-#         else:
-#             return redirect(url_for("home_page"))
-#     except:
-#             return redirect(url_for("home_page"))
-
-# @app.route('/Auth/login', methods=['POST'])
-# def auth_login():
-#     try:
-#         query = database.search_user(request.get_json())
-#         print(query)
-#         current_user = query["username"]
-#         render_template("settings.html")
-#     except:
-#         return render_template("login.html")
-
-
-# @app.route('/Settings/fetch/current_user', methods = ['GET'])
-# def fetch_current_user():
-#     print(current_user)
-#     try:
-#         print(current_user)
-#         return current_user
-#     except:
-#         return "none"    
-
-# @app.route('/Settings/update/<int:user>', methods = ['POST'])
-# def update_settings(user):
-#     try:
-#         settings = database.update_settings(user, request.get_json())
-#     except:
-#         return 0
-#     return 1
-
-
 @app.route('/login/user', methods = ['POST'])
 def user_login():
     username = request.form["username"]
@@ -104,7 +63,7 @@ def user_signup():
         for file in f:
             file.save("dataset/"+username+"/"+file.filename)
 
-        os.system("python encode_faces.py --dataset dataset --encodings encodings.pickle --detection-method hog")
+        os.system("python3 encode_faces.py --dataset dataset --encodings encodings.pickle --detection-method hog")
 
 
         return render_template("settings.html")

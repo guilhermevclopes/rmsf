@@ -27,13 +27,13 @@
 			"config": {
 				"useMMMFaceRecoDNN": true
 			},
-			"classes": "lourenco"
+			"classes": "---"
 		},
 		{
 			"module": "MMM-Face-Reco-DNN",
 			"config":{
 				"logoutDelay": 30000,
-				"checkInterval": 500
+				"checkInterval": 2000
 			}
 		},
 		{
@@ -47,11 +47,11 @@
 			"module": "clock",
 			"disabled": false,
 			"position": "top_left",
-			"classes": "lourenco"
+			"classes": "---"
 		},
 		{
 			"module": "calendar",
-			"disabled": true,
+			"disabled": false,
 			"header": "Calendar",
 			"position": "top_left",
 			"config": {
@@ -62,13 +62,13 @@
 					}
 				]
 			},
-			"classes": "lourenco"
+			"classes": "---"
 		},
 		{
 			"module": "compliments",
 			"disabled": false,
 			"position": "lower_third",
-			"classes": "lourenco"
+			"classes": "---"
 		},
 		{
 			"module": "weather",
@@ -82,7 +82,7 @@
 				"locationID": "",
 				"apiKey": "cb768cb0da3b641c528735b0a5762dcc"
 			},
-			"classes": "lourenco"
+			"classes": "---"
 		},
 		{
 			"module": "newsfeed",
@@ -91,8 +91,8 @@
 			"config": {
 				"feeds": [
 					{
-						"title": "RTP",
-						"url": "https://www.rtp.pt/noticias/rss/pais"
+						"title": "JN",
+						"url": "http://feeds.jn.pt/JN-Ultimas"
 					}
 				],
 				"showSourceTitle": true,
@@ -100,7 +100,7 @@
 				"broadcastNewsFeeds": true,
 				"broadcastNewsUpdates": true
 			},
-			"classes": "lourenco"
+			"classes": "---"
 		}
 	]
 }
